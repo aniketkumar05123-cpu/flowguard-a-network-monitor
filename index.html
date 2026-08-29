@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>FlowGuard - Network Diagnostics</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <h1>FlowGuard</h1>
+
+            <p>Network Diagnostics</p>
+
+        </div>
+
+        <nav>
+
+            <a href="#dashboard">Dashboard</a>
+            <a href="#history">History</a>
+            <a href="#settings">Settings</a>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Network Dashboard</h2>
+
+                    <p>
+                        Monitor your internet connection in real time.
+                    </p>
+
+                </div>
+
+                <div id="healthIndicator"
+                    class="health-indicator">
+
+                    ● Healthy
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="dashboard-grid">
+
+
+                <div class="card">
+
+                    <h3>Connection Status</h3>
+
+                    <p id="status">
+                        Ready
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Current Latency</h3>
+
+                    <p id="latency">
+                        -- ms
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Network Quality</h3>
+
+                    <p id="quality">
+                        --
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Average Latency</h3>
+
+                    <p id="averageLatency">
+                        -- ms
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Best Latency</h3>
+
+                    <p id="bestLatency">
+                        -- ms
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Worst Latency</h3>
+
+                    <p id="worstLatency">
+                        -- ms
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Total Tests</h3>
+
+                    <p id="testCount">
+                        0
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Last Test</h3>
+
+                    <p id="lastTest">
+                        Never
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= NETWORK TEST ================= -->
+
+        <section class="panel">
+
+            <h2>Network Test</h2>
+
+            <p>
+                Run a real network request to measure latency.
+            </p>
+
+            <button id="testButton">
+                Run Network Test
+            </button>
+
+        </section>
+
+
+        <!-- ================= MONITORING ================= -->
+
+        <section class="panel">
+
+            <h2>Continuous Monitoring</h2>
+
+            <p id="monitorStatus">
+                Monitoring is stopped.
+            </p>
+
+
+            <div class="controls">
+
+                <label for="monitorInterval">
+
+                    Test every:
+
+                </label>
+
+
+                <select id="monitorInterval">
+
+                    <option value="10">
+                        10 seconds
+                    </option>
+
+                    <option value="30" selected>
+                        30 seconds
+                    </option>
+
+                    <option value="60">
+                        1 minute
+                    </option>
+
+                    <option value="300">
+                        5 minutes
+                    </option>
+
+                </select>
+
+
+                <button id="startMonitorButton">
+
+                    Start Monitoring
+
+                </button>
+
+
+                <button id="stopMonitorButton"
+                    class="danger-button">
+
+                    Stop Monitoring
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= NETWORK DETAILS ================= -->
+
+        <section class="panel">
+
+            <h2>Network Details</h2>
+
+
+            <div class="details-grid">
+
+
+                <div class="detail-item">
+
+                    <h3>Connection Type</h3>
+
+                    <p id="connectionType">
+                        Not available
+                    </p>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <h3>Downlink</h3>
+
+                    <p id="downlink">
+                        Not available
+                    </p>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <h3>Browser RTT</h3>
+
+                    <p id="networkRtt">
+                        Not available
+                    </p>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <h3>Online Status</h3>
+
+                    <p id="onlineStatus">
+                        Checking...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= LATENCY CHART ================= -->
+
+        <section class="panel">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Latency Chart</h2>
+
+                    <p>
+                        Recent network performance.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-container">
+
+                <canvas id="latencyChart"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ALERT ================= -->
+
+        <section class="panel">
+
+            <h2>Network Alerts</h2>
+
+            <div id="alertBox"
+                class="alert-box">
+
+                No network problems detected.
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HISTORY ================= -->
+
+        <section id="history"
+            class="panel">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Test History</h2>
+
+                    <p>
+                        Your recent network tests.
+                    </p>
+
+                </div>
+
+
+                <div class="history-actions">
+
+                    <button id="exportButton">
+
+                        Export CSV
+
+                    </button>
+
+
+                    <button id="clearHistoryButton"
+                        class="danger-button">
+
+                        Clear History
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Time</th>
+
+                            <th>Latency</th>
+
+                            <th>Quality</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="historyTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <p id="emptyHistory"
+                class="empty-history">
+
+                No tests performed yet.
+
+            </p>
+
+        </section>
+
+
+        <!-- ================= SETTINGS ================= -->
+
+        <section id="settings"
+            class="panel">
+
+            <h2>Settings</h2>
+
+
+            <div class="settings-grid">
+
+
+                <div>
+
+                    <label for="latencyThreshold">
+
+                        Warning Threshold (ms)
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="latencyThreshold"
+                        value="150"
+                        min="1"
+                    >
+
+                    <p class="help-text">
+
+                        FlowGuard will warn you when latency
+                        reaches this value.
+
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <label for="maxHistory">
+
+                        Maximum History
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="maxHistory"
+                        value="50"
+                        min="5"
+                        max="500"
+                    >
+
+                    <p class="help-text">
+
+                        Maximum number of tests stored.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+
+            © 2026 FlowGuard.
+            All rights reserved.
+
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
