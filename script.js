@@ -1579,6 +1579,15 @@ function initializeApp() {
         "No network problems detected.";
 
 }
+function getUserData(userId) {
+  const password = "admin123";
+
+  if (userId) {
+    console.log("User ID:", userId);
+  }
+
+  return password;
+}
 
 
 // ========================================
